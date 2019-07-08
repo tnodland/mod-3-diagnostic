@@ -1,1 +1,11 @@
 <h1><%= foods.total_found %> Results Found</h1>
+
+<% foods.relevant_ten.each do |food| %>
+  <section class="food">
+    <p>NDB Number: <%= food.nbd_num %></p>
+    <p>Food: <%= food.type %></p>
+    <p>Food Group: <%= food.group %></p>
+    <p>Data Source: <%= food.source %></p>
+    <p>Manufacturer: <%= food.manufacturer %></p>
+  </section>
+<% end %>
