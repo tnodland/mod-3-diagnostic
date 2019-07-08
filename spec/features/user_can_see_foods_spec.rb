@@ -18,18 +18,19 @@ RSpec.describe "as a user" do
       expect(page.all('.food').count).to eq(10)
       #
       # And for each of the foods I should see:
+
       within(page.all('.food')[0]) do
-        expect(page).to have_content('NDB Number:')
-        expect(page).to have_content('Food:')
-        expect(page).to have_content('Food Group:')
-        expect(page).to have_content('Data Source:')
-        expect(page).to have_content('Manufacturer:')
+        # - The food's NDB Number
+        expect(page).to have_content('NDB Number: 45094945')
+        # - The food's name
+        expect(page).to have_content('Food: ONE POTATO TWO POTATO, PLAIN JAYNES, SWEET POTATO CHIPS, UPC: 785654000544')
+        # - The food group to which the food belongs
+        expect(page).to have_content('Food Group: Branded Food Products Database')
+        # - The food's data source
+        expect(page).to have_content('Data Source: LI')
+        # - The food's manufacturer
+        expect(page).to have_content("Manufacturer: Dieffenbach's Potato Chips")
       end
-      # - The food's NDB Number
-      # - The food's name
-      # - The food group to which the food belongs
-      # - The food's data source
-      # - The food's manufacturer
     end
   end
 end
