@@ -10,6 +10,9 @@ class FoodFacade
 
   def relevant_ten
     service = FoodService.new(@food_type)
-    service.get_ten
+    foods = service.get_ten
+    foods.map do |food_data|
+      Food.new(food_data)
+    end
   end
 end
