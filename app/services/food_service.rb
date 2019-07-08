@@ -4,26 +4,22 @@ class FoodService
   end
 
   def get_total
-    conn = Faraday.new('https://api.nal.usda.gov/ndb/search') do |f|
-      f.params['api_key'] = ENV['GOV_API_KEY']
-      f.params['q'] = @food_type
-      f.adapter Faraday.default_adapter
-    end
-
-    response = conn.get
-    parsed_response = JSON.parse(response.body)
-    return parsed_response["list"]["total"]
+    response = JSON.parse(conn.get.body)
+    return response["list"]["total"]
   end
 
   def get_ten
-    conn = Faraday.new('https://api.nal.usda.gov/ndb/search') do |f|
-      f.params['api_key'] = ENV['GOV_API_KEY']
-      f.params['q'] = @food_type
-      f.adapter Faraday.default_adapter
-    end
-
-    response = conn.get
-    parsed_response = JSON.parse(response.body)
-    return parsed_response["list"]["item"][0..9]
+    response = JSON.parse(conn.get.body)
+    return response["list"]["item"][0..9]
   end
+
+  private
+
+    def conn
+      @_conn ||= Faraday.new('https://api.nal.usda.gov/ndb/search') do |f|
+                  f.params['api_key'] = ENV['GOV_API_KEY']
+                  f.params['q'] = @food_type
+                  f.adapter Faraday.default_adapter
+                end
+    end
 end
